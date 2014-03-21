@@ -56,7 +56,7 @@ count["section"] = count["subsection"] = count["equation"] = 0
 ref={}
 
 endlatex = "&fg="+textcolor
-if HTML : endproof = "<img src=\"http://l.wordpress.com/latex.php?latex=\Box&fg=000000\">"
+if HTML : endproof = ""
 
 
 inthm = ""
@@ -322,10 +322,7 @@ def processmath( M ) :
         if md[0] == "$" :
             if HTML :
                 m=m.replace("$","")
-                m=m.replace("+","%2B") 
-                m=m.replace(" ","+")
-                m=m.replace("'","&#39;")
-                m="$$"+m+"%7D"+endlatex+"$$"
+                m="$$"+m+""+endlatex+"$$"
             else :
                 m="$$ {"+mb[1]+"}"+endlatex+"$$"
 
@@ -334,10 +331,6 @@ def processmath( M ) :
                 count["equation"] += 1
                 mb[1] = mb[1] + "\\ \\ \\ \\ \\ ("+str(count["equation"])+")"
             if HTML :
-                mb[1]=mb[1].replace("+","%2B")
-                mb[1]=mb[1].replace("&","%26")
-                mb[1]=mb[1].replace(" ","+")
-                mb[1]=mb[1].replace("'","&#39;")
                 m = "<p align=center>$$" + mb[1] +endlatex+"$$" + "</p>\n"
             else :
                 m = "<p align=center>$$ " + mb[1] +endlatex+"$$</p>\n"
