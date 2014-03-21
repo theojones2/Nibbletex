@@ -1,23 +1,157 @@
-<head>
-	</script>
-		<script type="text/javascript"
-  
-src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-</head>
 
 <p>
-Look at the document source to see how to <s>strike out</s> text, how to <span style="color:#ff0000;">use</span> <span style="color:#00ff00;">different</span> <span style="color:#0000ff;">colors</span>, and how to <a href="http://www.google.com">link to URLs with snapshot preview</a> and how to <a class="snap_noshots" href="http://www.google.com">link to URLs without snapshot preview</a>.
+
+
+<p>
+
+<b>1. Nibletex and Nibbblegen </b>
+
+<p>
+
+
+<p>
+The Github repository for Nibletex and Nibbblegen is 
+<p>
+https://github.com/theoj2/Nibbletex
+<p>
+This repository contains two programs written to allow the Nibbleblog blogging engine to work with LaTeX.
+<p>
+1. Nibbletex: A plugin that uses the MathJax library to allow your blog to use LaTeX math expressions (in the nibblebloglatex folder).
+<p>
+For example the following works:
+<p>
+When <p align=center>$$ a \ne 0&fg=000000$$</p>
+, there are two solutions to \(ax^2 + bx + c = 0\) and they are <p align=center>$$ x = {-b \pm \sqrt{b^2-4ac} \over 2a}.&fg=000000$$</p>
+
+<p>
+2. Nibblegen: A script to convert LaTex text to html usable in Nibbleblog (forked from the latex2wp project and in progress).Changes so far include modifications to the output of LaTeX2WP so it is more compatiable with Nibbleblog. Additionaly, it was modified to act like a filter.
+<p>
+Both are free software under the GPL3. 
+<p>
+This is the manual for Nibblegen. Nibblegen: A script to convert LaTex text to html usable in Nibbleblog (forked from the latex2wp project and in progress).Changes so far include modifications to the output of LaTeX2WP so it is more compatiable with Nibbleblog. Additionaly, it was modified to act like a filter.The documentation has not yet been updated but to convert a .tex file to HTML use
+<p>
+ cat example.tex | python2 nibblegen.py > example.html 
+<p>
+The nibbletex plugin MUST be installed for math formatting to work. 
+<p>
+A major current difference between Nibblegen and latex2wp is that only unnumbered equations style math formatting works. 
+<p>
+
+
+<p>
+
+<b>2. How to Use Nibblegen </b>
+
+<p>
+
+
+<p>
+To <s>strike out</s> text, how to <span style="color:#ff0000;">use</span> <span style="color:#00ff00;">different</span> <span style="color:#0000ff;">colors</span>, and how to <a href="http://www.google.com">link to URLs with snapshot preview</a> and how to <a class="snap_noshots" href="http://www.google.com">link to URLs without snapshot preview</a>.
 <p>
 There is a command which is ignored by pdflatex and which defines where to cut the post in the version displayed on the main page<!--more-->
 <p>
 Anything between the conditional declarations <em>ifblog . . . fi</em> is ignored by LaTeX and processed by latex2wp. Anything between <em>iftex . . . fi</em> is processed by LaTex and ignored by latex2wp.
 <p>
- <span style="color:#00ff00;">This green sentence appears only in WordPress </span> 
+ <span style="color:#00ff00;">This green sentence appears only in Nibbleblog </span> 
 <p>
 
 <p>
 This is useful if one, in desperation, wants to put pure HTML commands in the <em>ifblog . . . fi</em> scope.
+<p>
+It it is possible to have tabular environments with borders (the border will not be displayed in the LaTeX preview), as in 
+<p>
+<table border="1" align=center><td align=left> blog </td><td align=right> quality</td></tr><tr><td align=left> what's new </td><td align=right> excellent</td></tr><tr><td align=left> in theory </td><td align=right> poor </td></tr></table>
+<p>
+And it is possible to include a picture so that the pdf file produced with pdflatex imports it from a local image file (which has to be pdf, gif, jpeg, or png) and the Nibbleblog post imports it from a URL.
+<p>
+<p align=center><img width = 400 src="http://imgs.xkcd.com/comics/donald_knuth.png"></p>
+<p>
+The <em>image</em> command used to generate the above image has three parameter: a size parameter for either the width or the height, expressed in pixels (if different from the original resolution, the picture will be scaled), a URL for the location of the image (this will be used by Nibbleblog) and a local file name (which will used by pdflatex).
+<p>
+It is possible to have numbered and unnumbered sections and subsections. References to <em>label</em> commands which are not in the scope of a numbered equation or a numbered theorem-like environment will refer to the section number, such as a reference to Section <a href="#sec">3</a> below.
+<p>
+HTML does not have good support for itemized list with descriptors (what one gets in LaTeX using the <em>itemize</em> environment with optional parameters in square brackets after the <em>item</em> commands). We can only offer the following rather ugly rendering:
+<p>
+
+
+<ul> <li>Case a. Description of case a <li>Case b. Description of case b 
+</ul>
+
+
+<p>
+
+
+<p>
+
+<b> Examples of Sections </b>
+
+<p>
+
+
+<p>
+
+
+<p>
+
+<b> And Subsections </b>
+
+<p>
+
+
+<p>
+
+
+<p>
+
+<b>3. A section </b>
+
+<p>
+
+ <a name="sec"></a>
+<p>
+
+
+<p>
+
+<b>  3.1. And a subsection </b>
+
+<p>
+
+
+<p>
+
+
+<p>
+
+<b>4. Changing the style </b>
+
+<p>
+
+
+<p>
+The file latex2wpstyle.py contains several definitions that determine the appearance of the WordPress/Nibbleblog translation. It should be self-explanatory to change the way sections, subsections, proofs and theorem-like environments are typeset, and to change the numbering scheme for theorem-like environments.
+<p>
+The variable $$ {M}&fg=000000$$ in latex2wpstyle.py contains a list of pairs of strings. For every pair, every occurrence of the first string in the document is replaced by an occurrence of the second before proceeding to the conversion from LaTeX to WordPress. If you want to use simple macros (which do not involve parameter-passing) then edit $$ {M}&fg=000000$$ to add support for your own LaTeX macros. (You will have to define the macros in macrosblog.tex as well, otherwise you will not be able to compile your LaTeX file and preview it.)
+<p>
+Some macros are already defined. For example, backslash-E produces an expectation symbol:
+<p>
+<p align=center>$$  \mathop{\mathbb E}_{x \in X} f(x) := \sum_{x\in X} \mathop{\mathbb P} [x] \cdot f(x) &fg=000000$$</p>
+
+<p>
+Some more macros (see the LaTeX source)
+<p>
+<p align=center>$$  \{ 0,1 \}, {\mathbb R} , {\mathbb C}, {\mathbb Z}, {\mathbb N} , {\mathbb Q}, \epsilon &fg=000000$$</p>
+
+<p>
+
+
+<p>
+
+<b>5. Math </b>
+
+<p>
+
+
 <p>
 
 <blockquote><b>Lemma 1 (Main)</b> <em> <a name="lmmain"></a> Let $$ {\cal F}&fg=000000$$ be a total ramification of a compactifier, then <a name="eqlemma"><p align=center>$$   \forall g \in {\cal F}. g^2 = \eta \ \ \ \ \ (1)&fg=000000$$</p>
@@ -58,11 +192,6 @@ Note that accented characters are allowed. Unfortunately, Erd&ouml;s's name cann
 <p>
 One can correctly type the names of H&aring;stad, Szemer&eacute;di, &#268;ech, and so on.
 <p>
-It is possible to have numbered equations
-<p>
-<a name="eqtest"><p align=center>$$   \frac 1 {x^2} \ge 0 \ \ \ \ \ (2)&fg=000000$$</p>
-</a>
-<p>
 and unnumbered equations
 <p>
 <p align=center>$$  t(x) - \frac 12 &gt; x^{\frac 13} &fg=000000$$</p>
@@ -71,13 +200,6 @@ and unnumbered equations
 Unnumbered equations can be created with the double-dollar sign command or with the backslash-square bracket command.
 <p>
 <p align=center>$$  f(x) = \int_{-\infty}^{x} \frac 1 {t^2} dt &fg=000000$$</p>
-
-<p>
-It is possible to refer to equations and theorems via the <em>ref</em>, <em>eqref</em> and <em>label</em> LaTeX commands, for example to Equation (<a href="#eqtest">2</a>), to Equation <a href="#eqlemma">(1)</a>, and to Lemma <a href="#lmmain">1</a> above.
-<p>
-eqnarray* is supported, but not eqnarray:
-<p>
-<p align=center>$$  \begin{array}{rcl}  f(x) & &lt; & x^2 - y^2\\ & = & (x+y) \cdot (x-y) \end{array} &fg=000000$$</p>
 
 <p>
 <em>You <b>can</b> nest a <b>bold</b> text inside an emphasized text or viceversa.</em>
@@ -91,97 +213,6 @@ The LaTex commands to type &#36;, &#37;, and &amp; are supported outside math mo
 <p>
 The section symbol &sect; is also supported.
 <p>
-WordPress has trouble if a LaTeX expression containing a $$ {&lt;}&fg=000000$$ symbol, such as $$ {x^2 &lt; x^2 + 1}&fg=000000$$ is followed by an expression containing a $$ {&gt;}&fg=000000$$ symbol, such as $$ {(x+y)^2 &gt; (x+y)^2 - 3}&fg=000000$$. This is fixed by converting the inequality symbols into ``HTML character codes.'' Always write the symbols $$ {&lt;}&fg=000000$$ and $$ {&gt;}&fg=000000$$ in math mode.
-<p>
-It it is possible to have tabular environments, both with borders (the border will not be displayed in the LaTeX preview), as in 
-<p>
-<table border="1" align=center><td align=left> blog </td><td align=right> quality</td></tr><tr><td align=left> what's new </td><td align=right> excellent</td></tr><tr><td align=left> in theory </td><td align=right> poor </td></tr></table>
-<p>
-and without borders as in
-<p>
-<table align = center><tr><td align=center> $$ {a}&fg=000000$$ </td><td align=center> $$ {\rightarrow}&fg=000000$$ </td><td align=center> $$ {b}&fg=000000$$</td></tr><tr><td align=center> $$ {\downarrow}&fg=000000$$ </td><td align=center> </td><td align=center> $$ {\uparrow}&fg=000000$$</td></tr><tr><td align=center> $$ {c}&fg=000000$$ </td><td align=center> $$ {\rightarrow}&fg=000000$$ </td><td align=center> $$ {d}&fg=000000$$ </td></tr></table>
-<p>
-(The tabular environments will be centered in WordPress, but not in the LaTeX preview.)
-<p>
-And it is possible to include a picture so that the pdf file produced with pdflatex imports it from a local image file (which has to be pdf, gif, jpeg, or png) and the WordPress post imports it from a URL.
-<p>
-<p align=center><img width = 400 src="http://imgs.xkcd.com/comics/donald_knuth.png"></p>
-<p>
-The <em>image</em> command used to generate the above image has three parameter: a size parameter for either the width or the height, expressed in pixels (if different from the original resolution, the picture will be scaled), a URL for the location of the image (this will be used by WordPress) and a local file name (which will used by pdflatex).
-<p>
-It is possible to have numbered and unnumbered sections and subsections. References to <em>label</em> commands which are not in the scope of a numbered equation or a numbered theorem-like environment will refer to the section number, such as a reference to Section <a href="#sec">1</a> below.
-<p>
-HTML does not have good support for itemized list with descriptors (what one gets in LaTeX using the <em>itemize</em> environment with optional parameters in square brackets after the <em>item</em> commands). We can only offer the following rather ugly rendering:
-<p>
-
-
-<ul> <li>Case a. Description of case a <li>Case b. Description of case b 
-</ul>
-
-
-<p>
-
-
-<p>
-
-<b> Examples of Sections </b>
-
-<p>
-
-
-<p>
-
-
-<p>
-
-<b> And Subsections </b>
-
-<p>
-
-
-<p>
-
-
-<p>
-
-<b>1. A section </b>
-
-<p>
-
- <a name="sec"></a>
-<p>
-
-
-<p>
-
-<b>  1.1. And a subsection </b>
-
-<p>
-
-
-<p>
-
-
-<p>
-
-<b>2. Changing the style </b>
-
-<p>
-
-
-<p>
-The file latex2wpstyle.py contains several definitions that determine the appearance of the WordPress translation. It should be self-explanatory to change the way sections, subsections, proofs and theorem-like environments are typeset, and to change the numbering scheme for theorem-like environments.
-<p>
-The variable $$ {M}&fg=000000$$ in latex2wpstyle.py contains a list of pairs of strings. For every pair, every occurrence of the first string in the document is replaced by an occurrence of the second before proceeding to the conversion from LaTeX to WordPress. If you want to use simple macros (which do not involve parameter-passing) then edit $$ {M}&fg=000000$$ to add support for your own LaTeX macros. (You will have to define the macros in macrosblog.tex as well, otherwise you will not be able to compile your LaTeX file and preview it.)
-<p>
-Some macros are already defined. For example, backslash-E produces an expectation symbol:
-<p>
-<p align=center>$$  \mathop{\mathbb E}_{x \in X} f(x) := \sum_{x\in X} \mathop{\mathbb P} [x] \cdot f(x) &fg=000000$$</p>
-
-<p>
-Some more macros (see the LaTeX source)
-<p>
-<p align=center>$$  \{ 0,1 \}, {\mathbb R} , {\mathbb C}, {\mathbb Z}, {\mathbb N} , {\mathbb Q}, \epsilon &fg=000000$$</p>
-
+Nibbleblog has trouble if a LaTeX expression containing a $$ {&lt;}&fg=000000$$ symbol, such as $$ {x^2 &lt; x^2 + 1}&fg=000000$$ is followed by an expression containing a $$ {&gt;}&fg=000000$$ symbol, such as $$ {(x+y)^2 &gt; (x+y)^2 - 3}&fg=000000$$. This is fixed by converting the inequality symbols into ``HTML character codes.'' Always write the symbols $$ {&lt;}&fg=000000$$ and $$ {&gt;}&fg=000000$$ in math mode.
 <p>
 

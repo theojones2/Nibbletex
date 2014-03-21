@@ -654,30 +654,13 @@ and a clickable link to the referenced location.
 """
 
 import sys
-#inputfile = "wpress.tex"
-outputfile = "wpress.html"
-if len(argv) > 1 :
-    outputfile = argv[1]
-    f=open(inputfile)
-    s=f.read()
-    f.close()
-else:
-  s = ""
-  while True:
-    char = sys.stdin.read(1)
-    if not char:
+s = ""
+while True:
+   char = sys.stdin.read(1)
+   if not char:
         break
-    if char:
+   if char:
         s = s + char
-
-
-#    if len(argv) > 2 :
-#        outputfile = argv[2]
-#    else :
-#        outputfile = inputfile.replace(".tex",".html")
-
-
-
 
 """
   extractbody() takes the text between a \begin{document}
